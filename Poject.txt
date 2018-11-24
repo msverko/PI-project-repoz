@@ -1,0 +1,129 @@
+﻿http://www.iconarchive.com
+
+
+SQLite nema instalacije - samo kopirati file u folder c:\SQLite  (moze i bilo koji drugi, ali path do baze je hardcoded)
+repository.db
+sqldiff.exe
+sqlite3.exe
+sqlite3_analyzer.exe
+_________________________________________________________________________________
+Naredbe:
+
+Donja naredba se spaja na bazu ili je kreira ako je nema(ime baze i folder je hardcoded: C:\SQLite)
+c:\SQLite\sqlite3 c:\SQLite\repository.db
+
+.quit
+.databases
+.tables
+.schema t_name
+.mode column
+.headers on
+
+DELETE FROM t_name
+DROP TABLE t_name
+
+____________________________________________________________________________
+
+Kreirane tablice:
+
+
+CREATE TABLE t_repoz (
+	rname varchar(50) PRIMARY KEY,
+	rpath Varchar(150) NOT NULL
+);
+
+CREATE TABLE t_members (
+	username Varchar(20) PRIMARY KEY NOT NULL,
+	name varchar(50) NOT NULL,
+	surname Varchar(50) NOT NULL,
+	role Varchar(50) NOT NULL,
+	mail Varchar(50) NOT NULL,
+	pass Varchar(20) UNIQUE NOT NULL,
+	passlevel int NOT NULL
+);
+
+CREATE TABLE t_doc(
+	filename varchar(50) PRIMARY KEY NOT NULL,
+	project varchar(50) NOT NULL NOT NULL,
+	owner varchar(50) NOT NULL,
+	commitdatetime dt datetime DEFAULT current_timestamp,
+	commituser varchar(50) NOT NULL,
+	locked bool DEFAULT 0,
+	rev integer DEFAULT 0
+);
+
+CREATE TABLE t_projects(
+	name varchar(50) PRIMARY KEY NOT NULL,
+	folder varchar(50) NOT NULL,
+	owner varchar(50) NOT NULL,
+	FOREIGN KEY(owner) REFERENCES t_members(username)
+);
+
+CREATE TABLE t_role(
+	name varchar(50) PRIMARY KEY NOT NULL,
+	accesslevel integer NOT NULL,
+	FOREIGN KEY(accesslevel) REFERENCES t_members(passlevel)
+);
+
+CREATE TABLE t_team(
+	id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	username varchar(20) NOT NULL,
+	project varchar(50) NOT NULL,
+	FOREIGN KEY(username) REFERENCES t_members(username),
+	FOREIGN KEY(project) REFERENCES t_projects(name)
+);
+
+CREATE TABLE t_hiscommit(
+	id integer PRIMARY KEY NOT NULL,
+	commdatetime dt datetime DEFAULT current_timestamp,
+	commuser varchar(50) NOT NULL,
+	filename varchar(50) NOT NULL,
+	rev integer NOT NULL,
+	FOREIGN KEY(commuser) REFERENCES t_members(username),
+	FOREIGN KEY(filename) REFERENCES t_doc(filename)
+);		
+
+CREATE TABLE t_workingdoc(
+	id integer PRIMARY KEY NOT NULL,
+	filename varchar(50) NOT NULL,
+	workinguser varchar(50) NOT NULL,
+	FOREIGN KEY(filename) REFERENCES t_doc(filename),
+	FOREIGN KEY(workinguser) REFERENCES t_members(username)
+);
+
+CREATE TABLE t_support(
+	id integer PRIMARY KEY NOT NULL,
+	subject varchar(50) NOT NULL,
+	project varchar(50) NOT NULL,
+	usersent varchar(50) NOT NULL,
+	senttime dt datetime DEFAULT current_timestamp,
+	issuesolved bool DEFAULT 0,	
+	usersolved varchar(50),
+	solvedtime dt datetime,
+	FOREIGN KEY(usersent) REFERENCES t_members(username),
+	FOREIGN KEY(usersolved) REFERENCES t_members(username),
+	FOREIGN KEY(project) REFERENCES t_projects(name)
+);
+
+CREATE TABLE t_msg(
+	id integer PRIMARY KEY NOT NULL,
+	project varchar(50) NOT NULL,
+	subject varchar(50) NOT NULL,
+	sender varchar(50) NOT NULL,
+	receiver varchar(50) NOT NULL,
+	message text NOT NULL,
+	deleted bool DEFAULT 0,
+	senttime dt datetime DEFAULT current_timestamp,
+	FOREIGN KEY(sender) REFERENCES t_members(username),
+	FOREIGN KEY(receiver) REFERENCES t_members(username),
+	FOREIGN KEY(project) REFERENCES t_projects(name)
+);
+
+insert into t_role (name,accesslevel) values('Developer',2);
+insert into t_role (name,accesslevel) values('Commissioning eng.',3);
+insert into t_role (name,accesslevel) values('Project manager',9);
+
+
+INSERT INTO t_members ( username,name,surname,role,mail,pass,passlevel) values ('pm1', 'Bill', 'Gates', 'Project manager', 'b.gates@firma.com', 'pm1pm1', 9);
+### Pazi !!! - ostale usere ubacivati isključivo preko forme jer se mora kreirati folder za svakog novog.
+
