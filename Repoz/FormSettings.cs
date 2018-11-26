@@ -159,6 +159,13 @@ namespace Repoz
                     listViewUsers.Items.Clear();
                     string sqlString = string.Format(@"SELECT DISTINCT * FROM t_members"); //Load list of all users
                     db.LoadVeiwListUsers(listViewUsers, sqlString);
+
+                    txtMemberName.Text = null;
+                    txtMemberSurname.Text = null;
+                    txtEmail.Text = null;
+                    username = txtUsername.Text = null;
+                    txtPassword.Text = null;
+
                 }
                 else
                 {

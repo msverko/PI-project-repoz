@@ -124,7 +124,6 @@ namespace Repoz
                 labRepozName.Text = db.GetRepozName(); //show repository name in label on the form(if repository is created and in t_repoz table).
                 labProjName.Text = glob.ProjectName;
                 db.GetProjectsInCombo(comboProjects);
-                if (!String.IsNullOrEmpty(glob.ProjectName)) glob.ProjectName = comboProjects.Text;
                 listViewProjDoc.Items.Clear(); //Clear list, and load all file names from db (Query is hardcoded)
                 db.LoadVeiwListProjectDocuments(listViewProjDoc);
             }

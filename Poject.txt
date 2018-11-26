@@ -124,6 +124,6 @@ insert into t_role (name,accesslevel) values('Commissioning eng.',3);
 insert into t_role (name,accesslevel) values('Project manager',9);
 
 
-INSERT INTO t_members ( username,name,surname,role,mail,pass,passlevel) values ('pm1', 'Bill', 'Gates', 'Project manager', 'b.gates@firma.com', 'pm1pm1', 9);
+INSERT INTO t_members ( username,name,surname,role,mail,pass,passlevel) values ('pm1', 'DefaultPM', 'user', 'Project manager', 'default.pm@repoz.com', 'pm1pm1', 9);
 ### Pazi !!! - ostale usere ubacivati isključivo preko forme jer se mora kreirati folder za svakog novog.
 
