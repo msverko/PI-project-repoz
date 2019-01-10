@@ -262,6 +262,17 @@ namespace Repoz
                 this.Hide();
                 FrmSupport.ShowDialog();
                 this.Show();
+
+                //Refresh support request list and messages
+                listViewSupport.Items.Clear(); //Load suport requests
+                db.LoadVeiwListSupportRequests(listViewSupport);
+                //Load comboMsg with message subjects and sent-timestamp
+                comboMsgSubject.Text = null;
+                textBoxMsgFrom.Text = null;
+                textBoxMessageBody.Text = null;
+                string sqlString = null;
+                sqlString = string.Format(@"SELECT * FROM t_msg WHERE project LIKE '{0}' AND receiver LIKE '{1}' AND deleted = 0;", glob.ProjectName, glob.loggedUser);
+                db.LoadComboMsgTopicTimesamp(comboMsgSubject, sqlString);
             }
             else
             {

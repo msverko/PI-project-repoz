@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,11 @@ namespace Repoz
 {
     class Baza
     {
+
         SQLiteConnection sqlite_conn;
         SQLiteCommand sqlite_cmd;
         SQLiteDataReader sqlite_datareader;
-        string dbPath = @"C:\\SQLite\\repository.db";
+        string dbPath = Directory.GetCurrentDirectory() + "\\repository.db";     
 
         public string GetSingleLastValue(string sqlString, string col) //Get single(last) value in given column form db (as string).
         {
