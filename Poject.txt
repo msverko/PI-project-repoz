@@ -1,32 +1,4 @@
-﻿http://www.iconarchive.com
-
-
-SQLite nema instalacije - samo kopirati file u folder c:\SQLite  (moze i bilo koji drugi, ali path do baze je hardcoded)
-repository.db
-sqldiff.exe
-sqlite3.exe
-sqlite3_analyzer.exe
-_________________________________________________________________________________
-Naredbe:
-
-Donja naredba se spaja na bazu ili je kreira ako je nema(ime baze i folder je hardcoded: C:\SQLite)
-c:\SQLite\sqlite3 c:\SQLite\repository.db
-
-.quit
-.databases
-.tables
-.schema t_name
-.mode column
-.headers on
-
-DELETE FROM t_name
-DROP TABLE t_name
-
-____________________________________________________________________________
-
-Kreirane tablice:
-
-
+﻿
 CREATE TABLE t_repoz (
 	rname varchar(50) PRIMARY KEY,
 	rpath Varchar(150) NOT NULL
