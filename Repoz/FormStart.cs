@@ -118,7 +118,6 @@ namespace Repoz
             {
                 FormProjectSettings FrmProjSet = new FormProjectSettings();
                 FrmProjSet.ShowDialog();
-
                 //Refresh does not work, so....manualy :)
                 Baza db = new Baza();
                 labRepozName.Text = db.GetRepozName(); //show repository name in label on the form(if repository is created and in t_repoz table).
