@@ -368,7 +368,6 @@ namespace Repoz
                 FrmProjSet.ShowDialog();
             }
             else MessageBox.Show("No active project");
-
         }
 
     }
